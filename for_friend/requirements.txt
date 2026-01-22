@@ -1,0 +1,13 @@
+langchain-google-genai
+langchain-community
+chromadb
+pypdf
+tqdm
+docx2txt
+openpyxl
+networkx
+python-dotenv
+pandas
+unstructured
+msoffcrypto-tool
+xlrd

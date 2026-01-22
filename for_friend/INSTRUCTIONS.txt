@@ -1,0 +1,26 @@
+# INSTRUCTIONS for Hackathon Syariah Ingestion
+
+Here is how to set up the "Brain" on your computer.
+
+## 1. Setup Python
+Make sure you have Python installed (preferably version 3.11).
+
+## 2. Install Libraries
+Open your terminal (Command Prompt or PowerShell) in this folder and run:
+   pip install -r requirements.txt
+
+## 3. Set API Key
+Create a file named `.env` in this same folder.
+Inside it, paste your Gemini API Key like this:
+   GOOGLE_API_KEY=AIzaSyYourKeyHere...
+
+## 4. Run the Ingestion
+Run the script to read all the PDFs in the `data_bnm` folder:
+   python ingest.py
+
+## 5. Wait
+It will take some time because it sleeps between files to be nice to the free API.
+Once it's done, you will see a `chroma_db` folder appear. That is the brain!
+
+## Note
+If you see a "Rate Limit" error, don't worry! The script is smart—it will wait 60 seconds and try again automatically.

@@ -1,0 +1,36 @@
+.DS_Store
+Thumbs.db
+*.rar
+*.zip
+
+# Python / Django
+*.pyc
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+db.sqlite3
+.env
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+build/
+dist/
+.env.local
+
+# Project Specific (Data & Vector Store)
+# DO NOT COMMIT THESE (Copyright & Large Files)
+backend/media/source_documents/*
+backend/media/evidence_artifacts/*
+chroma_db/
+backend/chroma_db/
+backend/db.sqlite3
+data_source/
+for_friend/data_bnm/
+
+# But keep the folders
+!backend/media/source_documents/.gitkeep
+!backend/media/evidence_artifacts/.gitkeep
