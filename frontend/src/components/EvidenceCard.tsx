@@ -9,6 +9,7 @@ interface EvidenceProps {
         title?: string;
         source_title?: string;
         page_number?: number;
+        source_url?: string;
     } | null;
 }
 
@@ -74,6 +75,17 @@ export default function EvidenceCard({ evidenceUrl, metadata }: EvidenceProps) {
                             <p className="text-xs text-slate-500 mt-1">
                                 {metadata?.title} • Page {metadata?.page_number}
                             </p>
+                            {metadata?.source_url && (
+                                <a
+                                    href={`${metadata.source_url}#page=${metadata.page_number || 1}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 mt-3 px-4 py-2 bg-slate-900 text-white text-xs font-medium rounded-lg hover:bg-slate-800 transition-colors"
+                                >
+                                    <FileText className="w-3 h-3" />
+                                    View Source PDF
+                                </a>
+                            )}
                         </div>
 
                         {/* Close Button - Now inside the white card for better mobile/desktop alignment */}
@@ -85,7 +97,8 @@ export default function EvidenceCard({ evidenceUrl, metadata }: EvidenceProps) {
                         </button>
                     </div>
                 </div>
-            )}
+            )
+            }
         </div>
     );
 }

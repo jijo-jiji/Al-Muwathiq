@@ -15,7 +15,11 @@ class SourceDocument(models.Model):
     title = models.CharField(max_length=255)
     authority = models.CharField(max_length=20, choices=Authority.choices)
     file_path = models.FileField(upload_to='source_documents/')
+    source_url = models.URLField(max_length=500, blank=True, null=True, help_text="Original URL of the document")
+    publication_date = models.DateField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
+    is_ingested = models.BooleanField(default=False)
+    ingested_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         

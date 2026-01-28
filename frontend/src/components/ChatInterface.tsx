@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, Loader2, Info } from 'lucide-react';
+import Link from 'next/link';
 import MessageBubble from './MessageBubble';
 
 interface Message {
@@ -8,6 +9,7 @@ interface Message {
     sender: 'USER' | 'AI';
     text: string;
     evidenceUrl?: string;
+    evidenceList?: { url: string; title?: string; page?: number }[];
     metadata?: any;
 }
 
@@ -73,6 +75,7 @@ export default function ChatInterface() {
                 sender: 'AI',
                 text: data.response,
                 evidenceUrl: data.evidence_url,
+                evidenceList: data.evidence_list, // Capture the list
                 metadata: data.metadata
             }]);
 
@@ -100,6 +103,10 @@ export default function ChatInterface() {
                         </h1>
                         <p className="text-xs text-slate-500 font-medium ml-0.5">Shariah Compliance Assistant</p>
                     </div>
+
+                    <Link href="/pricing" className="text-sm font-medium text-slate-600 hover:text-emerald-700 transition-colors flex items-center gap-1">
+                        Pricing <span className="hidden sm:inline">& Model</span>
+                    </Link>
                 </div>
             </header>
 

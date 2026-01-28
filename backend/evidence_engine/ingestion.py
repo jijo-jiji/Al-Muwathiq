@@ -40,6 +40,7 @@ def ingest_document(source_doc: SourceDocument):
     for split in splits:
         split.metadata['source_doc_id'] = str(source_doc.id)
         split.metadata['authority'] = source_doc.authority
+        split.metadata['source_url'] = source_doc.source_url or ""
         # Ensure page_number is 1-indexed (PyMuPDF is 0-indexed)
         page_idx = split.metadata.get('page', 0)
         split.metadata['page_number'] = page_idx + 1
@@ -58,4 +59,11 @@ def ingest_document(source_doc: SourceDocument):
     
     # Add documents
     vectorstore.add_documents(documents=splits)
+    
+    # 4. Mark as Ingested
+    source_doc.is_ingested = True
+    from django.utils import timezone
+    source_doc.ingested_at = timezone.now()
+    source_doc.save()
+    
     print(f"Saved {len(splits)} chunks to ChromaDB at {CHROMA_DB_DIR}")

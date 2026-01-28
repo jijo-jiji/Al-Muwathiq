@@ -7,7 +7,8 @@ interface MessageProps {
         id: string;
         sender: 'USER' | 'AI';
         text: string;
-        evidenceUrl?: string; // Optional
+        evidenceUrl?: string; // Optional (Legacy)
+        evidenceList?: { url: string; title?: string; page?: number }[]; // New Multi-Evidence
         metadata?: any;
     };
 }
@@ -39,12 +40,28 @@ export default function MessageBubble({ message }: MessageProps) {
                 </div>
 
                 {/* Visual Provenance (Only for AI) */}
-                {isAI && message.evidenceUrl && (
-                    <div className="mt-3">
-                        <EvidenceCard
-                            evidenceUrl={message.evidenceUrl}
-                            metadata={message.metadata}
-                        />
+                {isAI && (
+                    <div className="mt-3 flex flex-row gap-3 overflow-x-auto pb-2 snap-x">
+                        {/* New Multi-Evidence Support */}
+                        {message.evidenceList && message.evidenceList.length > 0 ? (
+                            message.evidenceList.map((evidence, idx) => (
+                                <div key={idx} className="shrink-0 snap-start">
+                                    <EvidenceCard
+                                        evidenceUrl={evidence.url}
+                                        metadata={{
+                                            source_title: evidence.title,
+                                            page_number: evidence.page
+                                        }}
+                                    />
+                                </div>
+                            ))
+                        ) : message.evidenceUrl ? (
+                            /* Fallback to legacy single evidence */
+                            <EvidenceCard
+                                evidenceUrl={message.evidenceUrl}
+                                metadata={message.metadata}
+                            />
+                        ) : null}
                     </div>
                 )}
             </div>

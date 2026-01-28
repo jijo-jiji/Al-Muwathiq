@@ -48,6 +48,7 @@ class ChatMessageView(View):
             
             ai_text = response_data['answer']
             evidence_url = response_data['evidence_url']
+            evidence_list = response_data.get('evidence_list', [])
             
             # 3. Save AI Message
             # We need to find the EvidenceArtifact object if url exists
@@ -84,6 +85,7 @@ class ChatMessageView(View):
             return JsonResponse({
                 'response': ai_text,
                 'evidence_url': evidence_url,
+                'evidence_list': evidence_list,
                 'metadata': response_data.get('metadata')
             })
 
